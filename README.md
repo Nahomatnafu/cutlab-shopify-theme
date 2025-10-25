@@ -1,4 +1,4 @@
-# Julian Prohaska - Shopify Theme
+# CutLab - Shopify Theme
 
 A modern, minimal Shopify Online Store 2.0 theme for clothing brands. Built from scratch with clean design, fully customizable through the Shopify Theme Editor.
 
@@ -267,7 +267,7 @@ shopify theme share
 
 ## 📄 License
 
-This theme is custom-built for Julian Prohaska brand. All rights reserved.
+This theme is custom-built for CutLab brand. All rights reserved.
 
 ## 🤝 Support
 
