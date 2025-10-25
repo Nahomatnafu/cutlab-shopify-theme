@@ -1,0 +1,17 @@
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "brand_name": "Julian Prohaska",
+        "enable_search": true
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}
+

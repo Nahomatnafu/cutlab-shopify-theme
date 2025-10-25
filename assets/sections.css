@@ -1,0 +1,362 @@
+/**
+ * Section-Specific Styles
+ * Julian Prohaska Shopify Theme
+ */
+
+/* ============================================
+   BRAND STATEMENT SECTION
+   ============================================ */
+.brand-statement {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+.brand-statement img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-statement-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3), transparent);
+}
+
+.brand-statement-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+.brand-statement-text {
+  max-width: 32rem;
+  padding: 0 1rem;
+}
+
+.brand-statement-heading {
+  font-size: 1.875rem;
+  color: white;
+  line-height: 1.2;
+  font-family: var(--font-display);
+}
+
+.brand-statement-cta {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: opacity var(--transition-base);
+}
+
+.brand-statement-cta:hover {
+  opacity: 0.7;
+}
+
+.brand-statement-cta svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (min-width: 768px) {
+  .brand-statement {
+    height: 500px;
+  }
+  
+  .brand-statement-heading {
+    font-size: 2.25rem;
+  }
+  
+  .brand-statement-cta {
+    top: 2rem;
+    right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .brand-statement {
+    height: 600px;
+  }
+  
+  .brand-statement-text {
+    max-width: 36rem;
+    margin-left: 5rem;
+  }
+  
+  .brand-statement-heading {
+    font-size: 3rem;
+  }
+  
+  .brand-statement-cta {
+    top: 3rem;
+    right: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .brand-statement-heading {
+    font-size: 3.75rem;
+  }
+}
+
+/* ============================================
+   NEWSLETTER SIGNUP SECTION
+   ============================================ */
+.newsletter-section {
+  padding: 4rem 0;
+  background-color: white;
+}
+
+.newsletter-inner {
+  max-width: 28rem;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.newsletter-title {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-display);
+}
+
+.newsletter-form {
+  position: relative;
+}
+
+.newsletter-input-wrapper {
+  position: relative;
+}
+
+.newsletter-input {
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem;
+  padding-right: 3rem;
+  border: 1px solid var(--color-border);
+  outline: none;
+  transition: border-color var(--transition-base);
+  font-size: 1rem;
+  font-family: var(--font-body);
+}
+
+.newsletter-input:focus {
+  border-color: var(--color-text-primary);
+}
+
+.newsletter-submit {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  color: var(--color-text-primary);
+}
+
+.newsletter-input:focus + .newsletter-submit,
+.newsletter-input:not(:placeholder-shown) + .newsletter-submit {
+  opacity: 1;
+}
+
+.newsletter-submit svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .newsletter-section {
+    padding: 6rem 0;
+  }
+  
+  .newsletter-title {
+    font-size: 1.875rem;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .newsletter-section {
+    padding: 8rem 0;
+  }
+  
+  .newsletter-title {
+    font-size: 2.25rem;
+  }
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.site-footer {
+  background-color: white;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+}
+
+.footer-divider {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.footer-divider-line {
+  width: 80%;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.footer-brand {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.footer-brand-name {
+  font-size: 3.75rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  padding: 0 1rem;
+}
+
+.footer-links a {
+  transition: color var(--transition-base);
+}
+
+.footer-links a:hover {
+  color: var(--color-text-primary);
+  opacity: 1;
+}
+
+.footer-separator {
+  display: none;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer-social a {
+  color: var(--color-text-primary);
+  transition: opacity var(--transition-base);
+}
+
+.footer-social a:hover {
+  opacity: 0.7;
+}
+
+.footer-social svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .site-footer {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
+  
+  .footer-divider {
+    margin-bottom: 4rem;
+  }
+  
+  .footer-brand {
+    margin-bottom: 4rem;
+  }
+  
+  .footer-brand-name {
+    font-size: 5rem;
+  }
+  
+  .footer-links {
+    font-size: 0.875rem;
+    gap: 1rem;
+  }
+  
+  .footer-separator {
+    display: inline;
+  }
+  
+  .footer-social {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-brand-name {
+    font-size: 6rem;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES FOR SECTIONS
+   ============================================ */
+.section {
+  padding: 3rem 0;
+}
+
+.section-large {
+  padding: 5rem 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: var(--font-display);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 4rem 0;
+  }
+  
+  .section-large {
+    padding: 6rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 5rem 0;
+  }
+  
+  .section-large {
+    padding: 8rem 0;
+  }
+  
+  .section-title {
+    font-size: 3rem;
+  }
+}
+

@@ -1,0 +1,167 @@
+{% comment %}
+  Footer Section
+  Large brand name, links, and social media icons
+{% endcomment %}
+
+<footer class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer">
+  <div class="container">
+    {%- comment -%} Divider Line {%- endcomment -%}
+    <div class="footer-divider">
+      <div class="footer-divider-line"></div>
+    </div>
+
+    {%- comment -%} Large Brand Name {%- endcomment -%}
+    <div class="footer-brand">
+      <h2 class="footer-brand-name">
+        {{ section.settings.brand_name | default: shop.name }}
+      </h2>
+    </div>
+
+    {%- comment -%} Footer Links {%- endcomment -%}
+    <div class="footer-links">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+      <span class="footer-separator">•</span>
+      <span>Powered by Shopify</span>
+      
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'link' -%}
+            <span class="footer-separator">•</span>
+            <a href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+              {{ block.settings.link_text }}
+            </a>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Social Media Icons {%- endcomment -%}
+    {%- if section.settings.show_social -%}
+      <div class="footer-social">
+        {%- if section.settings.social_facebook != blank -%}
+          <a href="{{ section.settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">
+            {% render 'icon-facebook' %}
+          </a>
+        {%- endif -%}
+        
+        {%- if section.settings.social_instagram != blank -%}
+          <a href="{{ section.settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
+            {% render 'icon-instagram' %}
+          </a>
+        {%- endif -%}
+        
+        {%- if section.settings.social_twitter != blank -%}
+          <a href="{{ section.settings.social_twitter }}" target="_blank" rel="noopener" aria-label="Twitter">
+            {% render 'icon-twitter' %}
+          </a>
+        {%- endif -%}
+        
+        {%- if section.settings.social_youtube != blank -%}
+          <a href="{{ section.settings.social_youtube }}" target="_blank" rel="noopener" aria-label="YouTube">
+            {% render 'icon-youtube' %}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "Julian Prohaska",
+      "info": "Large brand name displayed in footer"
+    },
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show social media icons",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter",
+      "label": "Twitter URL"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "YouTube URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Footer Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        {
+          "type": "link",
+          "settings": {
+            "link_text": "Privacy"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "link_text": "Refund"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "link_text": "Terms"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "link_text": "Shipping"
+          }
+        },
+        {
+          "type": "link",
+          "settings": {
+            "link_text": "Contact"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

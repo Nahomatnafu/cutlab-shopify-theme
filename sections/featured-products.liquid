@@ -1,0 +1,140 @@
+{% comment %}
+  Featured Products Section
+  Displays a grid of featured products with images, titles, prices, and color swatches
+{% endcomment %}
+
+<section class="product-grid-section" data-section-id="{{ section.id }}" data-section-type="featured-products">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="product-grid-title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    <div class="product-grid">
+      {%- if section.settings.collection != blank -%}
+        {%- assign collection = collections[section.settings.collection] -%}
+        {%- assign product_limit = section.settings.products_to_show -%}
+        
+        {%- for product in collection.products limit: product_limit -%}
+          <a href="{{ product.url }}" class="product-card">
+            <div class="product-image-wrapper">
+              {%- if product.featured_image -%}
+                <img 
+                  src="{{ product.featured_image | image_url: width: 600 }}"
+                  srcset="
+                    {{ product.featured_image | image_url: width: 300 }} 300w,
+                    {{ product.featured_image | image_url: width: 600 }} 600w,
+                    {{ product.featured_image | image_url: width: 900 }} 900w
+                  "
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  class="product-image"
+                  loading="lazy"
+                  width="{{ product.featured_image.width }}"
+                  height="{{ product.featured_image.height }}"
+                >
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'product-image' }}
+              {%- endif -%}
+            </div>
+
+            <div class="product-info">
+              <h3 class="product-title">{{ product.title }}</h3>
+              <p class="product-price">
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="price-sale">{{ product.price | money }}</span>
+                  <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                {%- else -%}
+                  {{ product.price | money }}
+                {%- endif -%}
+              </p>
+
+              {%- comment -%} Color Swatches {%- endcomment -%}
+              {%- if section.settings.show_color_swatches -%}
+                {%- assign color_option = product.options_with_values | where: 'name', 'Color' | first -%}
+                {%- if color_option and color_option.values.size > 0 -%}
+                  <div class="product-colors">
+                    {%- for value in color_option.values limit: 4 -%}
+                      <span 
+                        class="color-swatch" 
+                        style="background-color: {{ value | handleize }};"
+                        title="{{ value }}"
+                      ></span>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Placeholder products for theme editor {%- endcomment -%}
+        {%- for i in (1..4) -%}
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              {{ 'product-1' | placeholder_svg_tag: 'product-image' }}
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">Product {{ i }}</h3>
+              <p class="product-price">$0.00</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .price-sale {
+    color: var(--color-text-primary);
+  }
+  
+  .price-compare {
+    text-decoration: line-through;
+    color: var(--color-text-light);
+    margin-left: 0.5rem;
+    font-size: 0.875em;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Most Popular"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select a collection to display products from"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatches",
+      "label": "Show color swatches",
+      "default": true,
+      "info": "Displays color options if product has a 'Color' variant"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}
+

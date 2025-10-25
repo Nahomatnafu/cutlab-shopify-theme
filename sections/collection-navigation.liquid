@@ -1,0 +1,118 @@
+{% comment %}
+  Collection Navigation Section
+  Displays collection links with product counts
+{% endcomment %}
+
+<section class="collection-nav" data-section-id="{{ section.id }}" data-section-type="collection-navigation">
+  <div class="collection-nav-inner container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="collection-nav-title">
+        {{ section.settings.title }}
+        {%- if section.settings.title_superscript != blank -%}
+          <sup>{{ section.settings.title_superscript }}</sup>
+        {%- endif -%}
+      </h2>
+    {%- endif -%}
+
+    <div class="collection-nav-links">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'collection_link' -%}
+            {%- assign collection = collections[block.settings.collection] -%}
+            {%- if collection != blank -%}
+              <a href="{{ collection.url }}" class="collection-nav-link" {{ block.shopify_attributes }}>
+                {{ block.settings.link_text | default: collection.title }}
+                {%- if block.settings.show_count -%}
+                  <sup>{{ collection.products_count }}</sup>
+                {%- endif -%}
+              </a>
+            {%- else -%}
+              <a href="#" class="collection-nav-link" {{ block.shopify_attributes }}>
+                {{ block.settings.link_text | default: 'Collection' }}
+                {%- if block.settings.show_count -%}
+                  <sup>0</sup>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Navigation",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "FW25"
+    },
+    {
+      "type": "text",
+      "id": "title_superscript",
+      "label": "Title superscript",
+      "info": "Small text displayed as superscript next to title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_link",
+      "name": "Collection Link",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text",
+          "info": "Leave blank to use collection title"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_count",
+          "label": "Show product count",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Navigation",
+      "blocks": [
+        {
+          "type": "collection_link",
+          "settings": {
+            "link_text": "jackets"
+          }
+        },
+        {
+          "type": "collection_link",
+          "settings": {
+            "link_text": "denims"
+          }
+        },
+        {
+          "type": "collection_link",
+          "settings": {
+            "link_text": "tops"
+          }
+        },
+        {
+          "type": "collection_link",
+          "settings": {
+            "link_text": "headwear"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

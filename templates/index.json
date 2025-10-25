@@ -1,0 +1,88 @@
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero-banner",
+      "settings": {
+        "show_overlay": true,
+        "height_mobile": 300,
+        "height_desktop": 500
+      }
+    },
+    "collection_navigation": {
+      "type": "collection-navigation",
+      "blocks": {
+        "collection_1": {
+          "type": "collection_link",
+          "settings": {
+            "link_text": "jackets",
+            "show_count": true
+          }
+        },
+        "collection_2": {
+          "type": "collection_link",
+          "settings": {
+            "link_text": "denims",
+            "show_count": true
+          }
+        },
+        "collection_3": {
+          "type": "collection_link",
+          "settings": {
+            "link_text": "tops",
+            "show_count": true
+          }
+        },
+        "collection_4": {
+          "type": "collection_link",
+          "settings": {
+            "link_text": "headwear",
+            "show_count": true
+          }
+        }
+      },
+      "block_order": [
+        "collection_1",
+        "collection_2",
+        "collection_3",
+        "collection_4"
+      ],
+      "settings": {
+        "title": "FW25",
+        "title_superscript": ""
+      }
+    },
+    "featured_products": {
+      "type": "featured-products",
+      "settings": {
+        "title": "Most Popular",
+        "products_to_show": 4,
+        "show_color_swatches": true
+      }
+    },
+    "brand_statement": {
+      "type": "brand-statement",
+      "settings": {
+        "show_overlay": true,
+        "heading": "Distinctive designs, crafted with precision from boutique-sourced materials",
+        "button_text": "Shop Now",
+        "button_link": "/collections/all"
+      }
+    },
+    "newsletter_signup": {
+      "type": "newsletter-signup",
+      "settings": {
+        "title": "Stay Updated",
+        "placeholder": "Enter your email",
+        "success_message": "Thanks for subscribing!"
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "collection_navigation",
+    "featured_products",
+    "brand_statement",
+    "newsletter_signup"
+  ]
+}
+

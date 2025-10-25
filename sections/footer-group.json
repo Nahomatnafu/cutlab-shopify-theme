@@ -1,0 +1,61 @@
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "footer_link_1": {
+          "type": "link",
+          "settings": {
+            "link_text": "Privacy",
+            "link": "/policies/privacy-policy"
+          }
+        },
+        "footer_link_2": {
+          "type": "link",
+          "settings": {
+            "link_text": "Refund",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "footer_link_3": {
+          "type": "link",
+          "settings": {
+            "link_text": "Terms",
+            "link": "/policies/terms-of-service"
+          }
+        },
+        "footer_link_4": {
+          "type": "link",
+          "settings": {
+            "link_text": "Shipping",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "footer_link_5": {
+          "type": "link",
+          "settings": {
+            "link_text": "Contact",
+            "link": "/pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "footer_link_1",
+        "footer_link_2",
+        "footer_link_3",
+        "footer_link_4",
+        "footer_link_5"
+      ],
+      "settings": {
+        "brand_name": "Julian Prohaska",
+        "show_social": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}
+

@@ -1,0 +1,98 @@
+{% comment %}
+  Newsletter Signup Section
+  Email subscription form with inline submit button
+{% endcomment %}
+
+<section class="newsletter-section" data-section-id="{{ section.id }}" data-section-type="newsletter">
+  <div class="newsletter-inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="newsletter-title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="newsletter-description">
+        {{ section.settings.description }}
+      </div>
+    {%- endif -%}
+
+    {%- form 'customer', class: 'newsletter-form', data-newsletter-form: '' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      
+      <div class="newsletter-input-wrapper">
+        <input 
+          type="email" 
+          name="contact[email]" 
+          class="newsletter-input"
+          placeholder="{{ section.settings.placeholder | default: 'Enter your email' }}"
+          aria-label="Email address"
+          required
+        >
+        <button 
+          type="submit" 
+          class="newsletter-submit"
+          aria-label="Subscribe"
+        >
+          {% render 'icon-arrow-right' %}
+        </button>
+      </div>
+
+      {%- if form.posted_successfully? -%}
+        <div class="newsletter-success" style="margin-top: 1rem; color: green; text-align: center;">
+          {{ section.settings.success_message | default: 'Thanks for subscribing!' }}
+        </div>
+      {%- endif -%}
+
+      {%- if form.errors -%}
+        <div class="newsletter-error" style="margin-top: 1rem; color: red; text-align: center;">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+
+<style>
+  .newsletter-description {
+    margin-bottom: 1.5rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter Signup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Stay Updated"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "info": "Optional description text below the title"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks for subscribing!"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Signup"
+    }
+  ]
+}
+{% endschema %}
+
