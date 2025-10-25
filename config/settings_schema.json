@@ -1,7 +1,7 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Julian Prohaska",
+    "theme_name": "CutLab",
     "theme_version": "1.0.0",
     "theme_author": "Custom Theme",
     "theme_documentation_url": "https://help.shopify.com/",
@@ -90,7 +90,7 @@
         "id": "type_header_font",
         "default": "assistant_n4",
         "label": "Heading font",
-        "info": "For the Julian Prohaska theme, Cormorant Garamond is recommended"
+        "info": "For the CutLab theme, Cormorant Garamond is recommended"
       },
       {
         "type": "range",

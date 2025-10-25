@@ -1,4 +1,4 @@
-# Setup Instructions - Julian Prohaska Shopify Theme
+# Setup Instructions - CutLab Shopify Theme
 
 ## ✅ What's Been Completed
 
@@ -27,8 +27,8 @@ Since GitHub CLI is not installed, create the repository manually:
 
 **Option A: Via GitHub Website**
 1. Go to https://github.com/new
-2. Repository name: `julian-prohaska-shopify-theme`
-3. Description: `Custom Shopify Online Store 2.0 theme for Julian Prohaska - Modern minimal clothing brand design`
+2. Repository name: `cutlab-shopify-theme`
+3. Description: `Custom Shopify Online Store 2.0 theme for CutLab - Modern minimal clothing brand design`
 4. Choose **Public** or **Private**
 5. **DO NOT** initialize with README, .gitignore, or license (we already have these)
 6. Click **Create repository**
@@ -40,7 +40,7 @@ winget install --id GitHub.cli
 
 # Then create repo
 gh auth login
-gh repo create julian-prohaska-shopify-theme --public --source=. --description "Custom Shopify Online Store 2.0 theme for Julian Prohaska - Modern minimal clothing brand design"
+gh repo create cutlab-shopify-theme --public --source=. --description "Custom Shopify Online Store 2.0 theme for CutLab - Modern minimal clothing brand design"
 ```
 
 ### 2. Push to GitHub
@@ -49,7 +49,7 @@ After creating the repository on GitHub, run these commands:
 
 ```powershell
 # Add the remote (replace YOUR-USERNAME with your GitHub username)
-git remote add origin https://github.com/YOUR-USERNAME/julian-prohaska-shopify-theme.git
+git remote add origin https://github.com/YOUR-USERNAME/cutlab-shopify-theme.git
 
 # Push master branch
 git checkout master
