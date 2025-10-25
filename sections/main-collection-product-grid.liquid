@@ -1,0 +1,113 @@
+{% comment %}
+  Collection product grid section
+{% endcomment %}
+
+<div class="collection-products" data-section-id="{{ section.id }}">
+  <div class="container" style="padding: 2rem 1.5rem;">
+    
+    {% if collection.products.size > 0 %}
+      <div class="product-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+        {% for product in collection.products %}
+          <div class="product-card">
+            <a href="{{ product.url }}" class="product-link" style="text-decoration: none; color: inherit;">
+              <div class="product-image" style="position: relative; overflow: hidden; margin-bottom: 1rem;">
+                {% if product.featured_media %}
+                  <img
+                    src="{{ product.featured_media | image_url: width: 600 }}"
+                    srcset="{{ product.featured_media | image_url: width: 300 }} 300w,
+                            {{ product.featured_media | image_url: width: 600 }} 600w,
+                            {{ product.featured_media | image_url: width: 900 }} 900w"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    alt="{{ product.featured_media.alt | escape }}"
+                    loading="lazy"
+                    width="{{ product.featured_media.width }}"
+                    height="{{ product.featured_media.height }}"
+                    style="width: 100%; height: auto; display: block; transition: opacity 0.3s ease;"
+                  >
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+
+              <div class="product-info">
+                <h3 class="product-title" style="font-size: 1rem; margin-bottom: 0.5rem; font-weight: 400;">
+                  {{ product.title }}
+                </h3>
+                
+                <div class="product-price">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="sale-price" style="color: #c00;">{{ product.price | money }}</span>
+                    <span class="compare-price" style="text-decoration: line-through; opacity: 0.6; margin-left: 0.5rem;">
+                      {{ product.compare_at_price | money }}
+                    </span>
+                  {% else %}
+                    <span class="price">{{ product.price | money }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        <div class="pagination" style="margin-top: 3rem; text-align: center;">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endif %}
+
+    {% else %}
+      <div class="empty-collection" style="text-align: center; padding: 4rem 1.5rem;">
+        <p style="font-size: 1.25rem; opacity: 0.6;">No products in this collection</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  @media (min-width: 640px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .product-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+  }
+  
+  .product-card:hover img {
+    opacity: 0.8;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Product Grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "label": "Products per page",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "Enable filtering",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Enable sorting",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
+

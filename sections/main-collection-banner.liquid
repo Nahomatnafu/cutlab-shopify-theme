@@ -1,0 +1,30 @@
+{% comment %}
+  Collection banner section
+{% endcomment %}
+
+<div class="collection-banner" data-section-id="{{ section.id }}">
+  <div class="container" style="padding: 3rem 1.5rem; text-align: center;">
+    <h1 style="font-size: 3rem; margin-bottom: 1rem;">{{ collection.title }}</h1>
+    
+    {% if collection.description != blank %}
+      <div class="collection-description" style="max-width: 600px; margin: 0 auto; line-height: 1.6; opacity: 0.8;">
+        {{ collection.description }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Banner",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show collection description",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+

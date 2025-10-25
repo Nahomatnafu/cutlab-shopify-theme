@@ -1,0 +1,157 @@
+{% comment %}
+  Main product section
+{% endcomment %}
+
+<div class="product-page" data-section-id="{{ section.id }}" data-section-type="product">
+  <div class="container" style="padding: 4rem 1.5rem;">
+    <div class="product-grid" style="display: grid; grid-template-columns: 1fr; gap: 3rem;">
+      
+      {% comment %} Product Images {% endcomment %}
+      <div class="product-media">
+        {% if product.featured_media %}
+          <img
+            src="{{ product.featured_media | image_url: width: 1000 }}"
+            srcset="{{ product.featured_media | image_url: width: 375 }} 375w,
+                    {{ product.featured_media | image_url: width: 750 }} 750w,
+                    {{ product.featured_media | image_url: width: 1000 }} 1000w,
+                    {{ product.featured_media | image_url: width: 1500 }} 1500w"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            alt="{{ product.featured_media.alt | escape }}"
+            loading="lazy"
+            width="{{ product.featured_media.width }}"
+            height="{{ product.featured_media.height }}"
+            style="width: 100%; height: auto; display: block;"
+          >
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+
+      {% comment %} Product Info {% endcomment %}
+      <div class="product-info">
+        <h1 style="font-size: 2rem; margin-bottom: 1rem;">{{ product.title }}</h1>
+        
+        <div class="product-price" style="font-size: 1.25rem; margin-bottom: 1.5rem;">
+          <span class="price">{{ product.price | money }}</span>
+          {% if product.compare_at_price > product.price %}
+            <span class="compare-price" style="text-decoration: line-through; opacity: 0.6; margin-left: 0.5rem;">
+              {{ product.compare_at_price | money }}
+            </span>
+          {% endif %}
+        </div>
+
+        {% if product.description != blank %}
+          <div class="product-description" style="margin-bottom: 2rem; line-height: 1.6;">
+            {{ product.description }}
+          </div>
+        {% endif %}
+
+        {% form 'product', product, id: 'product-form' %}
+          {% if product.variants.size > 1 %}
+            <div class="product-variants" style="margin-bottom: 1.5rem;">
+              {% for option in product.options_with_values %}
+                <div class="variant-option" style="margin-bottom: 1rem;">
+                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">{{ option.name }}</label>
+                  <select
+                    name="options[{{ option.name | escape }}]"
+                    class="variant-select"
+                    style="width: 100%; padding: 0.75rem; border: 1px solid #000; background: white;"
+                  >
+                    {% for value in option.values %}
+                      <option value="{{ value | escape }}">{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          
+          <button
+            type="submit"
+            name="add"
+            class="btn btn-primary"
+            {% unless product.available %}disabled{% endunless %}
+            style="width: 100%; padding: 1rem; background: #000; color: #fff; border: none; cursor: pointer; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em;"
+          >
+            {% if product.available %}
+              Add to Cart
+            {% else %}
+              Sold Out
+            {% endif %}
+          </button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @media (min-width: 1024px) {
+    .product-grid {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+  
+  .btn-primary:hover:not(:disabled) {
+    opacity: 0.8;
+  }
+  
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>
+
+<script>
+  // Variant selection
+  if (document.querySelector('#product-form')) {
+    const form = document.querySelector('#product-form');
+    const selects = form.querySelectorAll('.variant-select');
+    
+    selects.forEach(select => {
+      select.addEventListener('change', () => {
+        const options = Array.from(selects).map(s => s.value);
+        const variant = {{ product.variants | json }}.find(v => {
+          return options.every((option, index) => {
+            return v.options[index] === option;
+          });
+        });
+        
+        if (variant) {
+          form.querySelector('input[name="id"]').value = variant.id;
+          form.querySelector('button[type="submit"]').disabled = !variant.available;
+          form.querySelector('button[type="submit"]').textContent = variant.available ? 'Add to Cart' : 'Sold Out';
+        }
+      });
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_image_zoom",
+      "label": "Enable image zoom",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share_buttons",
+      "label": "Show share buttons",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
+

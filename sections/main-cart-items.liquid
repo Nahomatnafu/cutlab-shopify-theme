@@ -1,0 +1,122 @@
+{% comment %}
+  Cart items section
+{% endcomment %}
+
+<div class="cart-items" data-section-id="{{ section.id }}">
+  <div class="container" style="padding: 4rem 1.5rem; max-width: 1000px; margin: 0 auto;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">Shopping Cart</h1>
+
+    {% if cart.item_count > 0 %}
+      <form action="{{ routes.cart_url }}" method="post" novalidate>
+        <div class="cart-items-list">
+          {% for item in cart.items %}
+            <div class="cart-item" style="display: grid; grid-template-columns: 100px 1fr auto; gap: 1.5rem; padding: 1.5rem 0; border-bottom: 1px solid #e5e5e5;">
+              
+              {% comment %} Product Image {% endcomment %}
+              <div class="cart-item-image">
+                {% if item.image %}
+                  <img
+                    src="{{ item.image | image_url: width: 200 }}"
+                    alt="{{ item.image.alt | escape }}"
+                    loading="lazy"
+                    width="100"
+                    height="100"
+                    style="width: 100%; height: auto; display: block;"
+                  >
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {% endif %}
+              </div>
+
+              {% comment %} Product Info {% endcomment %}
+              <div class="cart-item-details">
+                <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">
+                  <a href="{{ item.url }}" style="text-decoration: none; color: inherit;">
+                    {{ item.product.title }}
+                  </a>
+                </h3>
+                
+                {% if item.variant.title != 'Default Title' %}
+                  <p style="opacity: 0.6; margin-bottom: 0.5rem;">{{ item.variant.title }}</p>
+                {% endif %}
+
+                <div class="cart-item-quantity" style="margin-top: 1rem;">
+                  <label for="updates_{{ item.key }}" style="margin-right: 0.5rem;">Quantity:</label>
+                  <input
+                    type="number"
+                    name="updates[]"
+                    id="updates_{{ item.key }}"
+                    value="{{ item.quantity }}"
+                    min="0"
+                    data-line="{{ forloop.index }}"
+                    style="width: 80px; padding: 0.5rem; border: 1px solid #000;"
+                  >
+                </div>
+
+                <a
+                  href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0"
+                  style="display: inline-block; margin-top: 1rem; text-decoration: underline; opacity: 0.6;"
+                >
+                  Remove
+                </a>
+              </div>
+
+              {% comment %} Price {% endcomment %}
+              <div class="cart-item-price" style="text-align: right;">
+                <p style="font-size: 1.125rem;">{{ item.final_line_price | money }}</p>
+                {% if item.original_line_price > item.final_line_price %}
+                  <p style="text-decoration: line-through; opacity: 0.6; margin-top: 0.25rem;">
+                    {{ item.original_line_price | money }}
+                  </p>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="cart-actions" style="margin-top: 2rem; text-align: right;">
+          <button
+            type="submit"
+            name="update"
+            style="padding: 0.75rem 1.5rem; background: transparent; border: 1px solid #000; cursor: pointer; margin-right: 1rem;"
+          >
+            Update Cart
+          </button>
+        </div>
+      </form>
+
+    {% else %}
+      <div class="empty-cart" style="text-align: center; padding: 4rem 1.5rem;">
+        <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.6;">Your cart is empty</p>
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          style="display: inline-block; padding: 1rem 2rem; background: #000; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em;"
+        >
+          Continue Shopping
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  @media (max-width: 640px) {
+    .cart-item {
+      grid-template-columns: 80px 1fr !important;
+    }
+    
+    .cart-item-price {
+      grid-column: 2;
+      text-align: left !important;
+      margin-top: 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Cart Items",
+  "settings": []
+}
+{% endschema %}
+

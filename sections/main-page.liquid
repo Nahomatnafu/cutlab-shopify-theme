@@ -1,0 +1,28 @@
+{% comment %}
+  Main page section
+{% endcomment %}
+
+<div class="page-content" data-section-id="{{ section.id }}">
+  <div class="container" style="padding: 4rem 1.5rem; max-width: 800px; margin: 0 auto;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 2rem; text-align: center;">{{ page.title }}</h1>
+    
+    <div class="page-body" style="line-height: 1.8;">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show page title",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+

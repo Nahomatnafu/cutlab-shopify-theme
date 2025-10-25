@@ -1,0 +1,84 @@
+{% comment %}
+  Cart footer section with totals and checkout
+{% endcomment %}
+
+{% if cart.item_count > 0 %}
+  <div class="cart-footer" data-section-id="{{ section.id }}">
+    <div class="container" style="padding: 2rem 1.5rem; max-width: 1000px; margin: 0 auto;">
+      
+      <div class="cart-totals" style="max-width: 400px; margin-left: auto;">
+        
+        {% if cart.cart_level_discount_applications.size > 0 %}
+          <div class="cart-discounts" style="margin-bottom: 1rem;">
+            {% for discount in cart.cart_level_discount_applications %}
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Discount ({{ discount.title }})</span>
+                <span style="color: #c00;">-{{ discount.total_allocated_amount | money }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="cart-subtotal" style="display: flex; justify-content: space-between; padding: 1rem 0; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; margin-bottom: 1rem;">
+          <span style="font-size: 1.125rem;">Subtotal</span>
+          <span style="font-size: 1.125rem; font-weight: 500;">{{ cart.total_price | money }}</span>
+        </div>
+
+        {% if section.settings.show_note %}
+          <div class="cart-note" style="margin-bottom: 1.5rem;">
+            <label for="cart-note" style="display: block; margin-bottom: 0.5rem;">Order notes</label>
+            <textarea
+              name="note"
+              id="cart-note"
+              rows="3"
+              style="width: 100%; padding: 0.75rem; border: 1px solid #000; resize: vertical;"
+            >{{ cart.note }}</textarea>
+          </div>
+        {% endif %}
+
+        <p style="opacity: 0.6; margin-bottom: 1.5rem; font-size: 0.875rem;">
+          Shipping and taxes calculated at checkout
+        </p>
+
+        <button
+          type="submit"
+          name="checkout"
+          form="cart"
+          style="width: 100%; padding: 1rem; background: #000; color: #fff; border: none; cursor: pointer; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em;"
+        >
+          Checkout
+        </button>
+
+        {% if section.settings.show_continue_shopping %}
+          <a
+            href="{{ routes.all_products_collection_url }}"
+            style="display: block; text-align: center; margin-top: 1rem; text-decoration: underline; opacity: 0.6;"
+          >
+            Continue Shopping
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Cart Footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_note",
+      "label": "Show order note",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_continue_shopping",
+      "label": "Show continue shopping link",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+
